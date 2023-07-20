@@ -90,4 +90,19 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  host = 'sample-app-t80k.onrender.com'
+  config.action_mailer.default_url_options = { host: host }
+    ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => 'apikey',
+    :password       => ENV['SENDGRID_API_KEY'],
+    :domain         => 'render.com',
+    :enable_starttls_auto => true
+  }
+
 end
